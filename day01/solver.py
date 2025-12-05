@@ -1,13 +1,6 @@
 MODULUS = 100
 START_POSITION = 50
 
-
-def to_rotations(file_name: str) -> list[tuple[int, int]]:
-    from pathlib import Path
-    with open(Path(__file__).parent / file_name) as f:
-        return [(1 if l[0] == 'R' else -1, int(l[1:-1])) for l in f]
-
-
 def part1(rotations: list[tuple[int, int]]) -> int:
     password = 0
     position = START_POSITION
@@ -37,10 +30,11 @@ def part2(rotations: list[tuple[int, int]]) -> int:
 
 
 def solve(file_name: str):
-    rotations = to_rotations(file_name)
+    with open(file_name) as f:
+        rotations = [(1 if l[0] == 'R' else -1, int(l[1:-1])) for l in f]
+    print(file_name)
     for i, part in enumerate([part1, part2], start=1):
-        print(file_name, f'part{i}', part(rotations))
+        print(f'    part{i}', part(rotations))
 
-
-solve("example.txt")
-solve("input.txt")
+solve('example.txt')
+solve('input.txt')

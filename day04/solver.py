@@ -2,7 +2,8 @@ from typing import Iterator
 
 
 def neighbors(matrix: list[list[str]], row: int, col: int) -> Iterator[tuple[int, int]]:
-    for offset in [(-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1)]:
+    for offset in [(-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1),
+                   (0, -1)]:
         r = row + offset[0]
         c = col + offset[1]
         if 0 <= r < len(matrix) and 0 <= c < len(matrix[0]):
@@ -32,11 +33,12 @@ def part2(matrix: list[list[str]]) -> int:
     return total
 
 
-for file_name in ['example.txt', 'input.txt']:
-    print(file_name)
-    from pathlib import Path
-    with open(Path(__file__).parent / file_name) as f:
+def solve(file_name: str) -> None:
+    with open(file_name) as f:
         diagram = [list(line.strip()) for line in f]
-
+    print(file_name)
     for i, part in enumerate([part1, part2], start=1):
         print(f'    part{i}', part(diagram))
+
+solve("example.txt")
+solve("input.txt")

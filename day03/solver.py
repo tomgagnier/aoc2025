@@ -1,9 +1,3 @@
-def voltage_banks(file_name: str) -> list[str]:
-    from pathlib import Path
-    with open(Path(__file__).parent / file_name) as f:
-        return [line.rstrip('\n') for line in f]
-
-
 def part1(bank: str) -> int:
     first_digit_pos = bank.index(max(bank[0:-1]))
     max_after_first = max(bank[first_digit_pos + 1:])
@@ -24,9 +18,11 @@ def part2(bank: str) -> int:
 
 
 def solve(file_name: str):
-    banks = voltage_banks(file_name)
+    with open(file_name) as f:
+        joltage_banks = f.read().splitlines()
+    print(file_name)
     for i, part in enumerate([part1, part2], start=1):
-        print(f'part{i}', file_name, sum((part(bank) for bank in banks)))
+        print(f'    part{i}', sum((part(bank) for bank in joltage_banks)))
 
 
 solve("example.txt")
